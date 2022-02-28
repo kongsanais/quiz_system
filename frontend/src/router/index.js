@@ -18,6 +18,9 @@ const routes = [
   ///tse quiz app
   {
     //main_manu
+    path: "/main_manu",
+    name: "main_manu",
+    component: main_manu,
   },
   {
     path: "/qtse_quiz_edit",
