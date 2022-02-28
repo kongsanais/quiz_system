@@ -105,7 +105,7 @@ router.post('/quiz/show', async (req,res)=>{
   Quiz.findOne({_id : q_id})
   .populate('quiz_question')
   .exec(function (err, show_quiz) {
-    if (err) return handleError(err);
+    //if (err) return handleError(err);
     res.json({show_quiz})
   });
 })
@@ -225,8 +225,6 @@ router.post('/quiz/history_score', async (req, res) => {
 router.post('/quiz/get_all_score', async (req, res) => {
   let user_id =  req.body
   let Score_list  = await Score.find({})
-  // .populate('quiz')
-  // .where('user_id').equals("5f71633886680958609dcbesss8")
   .sort({createdAt: -1})
    var res_data = Score_list;
    res.json({res_data})
@@ -252,10 +250,6 @@ router.post('/quiz/get_history_ans', async (req, res) => {
     path: 'h_user_id',
     select : 'eng_prefix eng_firstname eng_lastname'
     })
-    // .where('h_user_id._id').equals(req.body.q_id_user)
-    // {h_quiz_id:req.body.quiz_id}
-    //match: {_id:req.body.quiz_id},
-    //console.log(ans_his)
     var res_data = ans_his;
     console.log(res_data)
     res.json({res_data})

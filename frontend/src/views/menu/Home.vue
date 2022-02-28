@@ -1,6 +1,6 @@
 <template>
   <div>
-
+      my home 
   </div>
 </template>
 
@@ -15,7 +15,7 @@
     data () {
       return {
         items: [
-             {src: require('../assets/home-carousel/home_pic_box.jpg')}
+            //  {src: require('../assets/home-carousel/home_pic_box.jpg')}
         ],
       }
     },

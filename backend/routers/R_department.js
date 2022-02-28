@@ -26,8 +26,9 @@ router.get('/department/department_list_withquiz/:_id', auth,async (req, res) =>
     let id = req.params._id;
     let Dep_list  = await Dep.findOne({})
                    .populate(
-                   {path: 'dep_quiz',
-                     match: {_id: {'$nin': check_quiz_arrayId}}, 
+                   {
+                    path: 'dep_quiz',
+                    match: {_id: {'$nin': check_quiz_arrayId}}, 
                     options: { 
                        sort: { 'quiz_sequence': 1 }, 
                     } 

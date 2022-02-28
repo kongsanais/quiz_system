@@ -4,7 +4,7 @@
     <v-row class="justify-center">
       <v-card style="width:500px;" class="mt-8">
           <v-card-title primary-title>
-            Login for Admin
+            <b>Login for Admin</b>
           </v-card-title>
            <v-card class="ma-1">
            </v-card>
@@ -36,12 +36,11 @@
               label="Password"
               id="password"
               v-model="account.password"
-              :append-icon="isShowPassword ? 'visibility' : 'visibility_off'"
+              :append-icon="isShowPassword ? 'mdi-form-textbox-password' : 'mdi-onepassword'"
               @click:append="isShowPassword = !isShowPassword"
               :type="isShowPassword ? 'text' : 'password'"
               :rules="[
                 (v1) => !!v1 || 'Password is required']"
-              counter
             />
 
             <v-row class="justify-space-between px-3 pt-4">
@@ -114,7 +113,6 @@ import api from "@/services/api";
 
 export default {
   mounted() {
-    alert(api.isLoggedInAdmin())
     if (api.isLoggedInAdmin()) 
     {
       this.$router.push("/qtse_admin_home");

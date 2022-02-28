@@ -10,9 +10,6 @@
           color="primary"
           elevation="2"
         >
-          <!-- <v-btn class="ma-2" tile outlined color="info" @click="onClickMenu('/')">
-      <v-icon left>mdi-pencil</v-icon> Department
-    </v-btn> -->
 
           <v-btn
             class="ma-2"

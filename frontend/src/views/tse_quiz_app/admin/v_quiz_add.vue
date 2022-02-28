@@ -20,7 +20,7 @@
             color="#232F3E"
             @click="onClickMenu('/quiz_list')"
           >
-            <v-icon left>mdi-order-bool-descending</v-icon> Quiz List
+            <v-icon left>mdi-order-bool-descending</v-icon> <b>Quiz List</b>
           </v-btn>
         </v-alert>
       </v-row>
@@ -39,7 +39,7 @@
         <v-col class="d-flex" xl="12" lg="12" md="12" sm="12" cols="12">
           <b class="mt-5" ><h3>Quiz Add</h3></b>
           <v-spacer></v-spacer>
-              <v-btn @click="saveQuiz()" class="ma-2" tile outlined color="success"><v-icon left>mdi-pencil</v-icon> SAVE </v-btn>
+              <v-btn @click="saveQuiz()" class="ma-2" tile outlined color="success"><v-icon left>mdi-pencil</v-icon><b> SAVE </b></v-btn>
         </v-col>
         <v-col class="d-flex" xl="6" lg="6" md="6" sm="12" cols="12">
           <v-text-field 
@@ -98,7 +98,7 @@
           v-on="on"
         >
           <v-icon>mdi-plus-box-multiple</v-icon>
-           Add Question
+           <b> Add Question </b>
         </v-btn>
       </template>
       <v-card>

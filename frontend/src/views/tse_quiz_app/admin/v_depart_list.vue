@@ -16,9 +16,9 @@
             tile
             outlined
             color="#6D8764"
-            @click="onClickMenu('/admin_home')"
+            @click="onClickMenu('/qtse_admin_home')"
           >
-            <v-icon left>mdi-shield-account</v-icon> Admin
+            <v-icon left>mdi-shield-account</v-icon> <b>Admin</b>
           </v-btn>
 
 
@@ -29,7 +29,7 @@
             color="primary"
             @click="dialog_addDepart = true"
           >
-            <v-icon left>mdi-folder-multiple-plus-outline</v-icon> Add Department
+            <v-icon left>mdi-folder-multiple-plus-outline</v-icon> <b> Add Department </b>
           </v-btn>
 
           
@@ -44,12 +44,12 @@
         <v-data-table :search="search" :headers="headers" :items="itemsWithIndex">
         <!-- table top section -->
         <template v-slot:top>
-          <v-toolbar-title><v-icon> mdi-format-list-checkbox </v-icon> Department List</v-toolbar-title>
+          <v-toolbar-title><v-icon> mdi-format-list-checkbox </v-icon> <b>Department List</b></v-toolbar-title>
           <v-toolbar flat color="white">
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-text-field
               v-model="search"
-              append-icon="search"
+              append-icon="mdi-card-search-outline"
               label="Search"
               single-line
               hide-details

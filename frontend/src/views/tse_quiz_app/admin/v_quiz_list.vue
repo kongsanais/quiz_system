@@ -16,9 +16,9 @@
             tile
             outlined
             color="#6D8764"
-            @click="onClickMenu('/admin_home')"
+            @click="onClickMenu('/qtse_admin_home')"
           >
-             <v-icon left>mdi-shield-account</v-icon> Admin
+             <v-icon left>mdi-shield-account</v-icon> <b> Admin</b>
           </v-btn>
 
           <v-btn
@@ -26,9 +26,9 @@
             tile
             outlined
             color="primary"
-            @click="onClickMenu('/quiz_add')"
+            @click="onClickMenu('/qtse_quiz_add')"
           >
-            <v-icon left>mdi-folder-multiple-plus-outline</v-icon> Add Quiz
+            <v-icon left>mdi-folder-multiple-plus-outline</v-icon> <b> Add Quiz </b>
           </v-btn>
 
         </v-alert>
@@ -40,12 +40,12 @@
         <v-data-table :search="search" :headers="headers" :items="itemsWithIndex">
         <!-- table top section -->
         <template v-slot:top>
-          <v-toolbar-title><v-icon> mdi-format-list-checkbox </v-icon> Quiz List</v-toolbar-title>
+          <v-toolbar-title><v-icon> mdi-format-list-checkbox </v-icon><b>Quiz List</b></v-toolbar-title>
           <v-toolbar flat color="white">
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-text-field
               v-model="search"
-              append-icon="search"
+              append-icon="mdi-card-search-outline"
               label="Search"
               single-line
               hide-details
@@ -192,10 +192,12 @@ export default {
       this.$router.push(link).catch((err) => {});
     },
     onClickReviewTest(quiz_id){
-      this.$router.push({ name: 'quiz_show', params: {quiz_id:quiz_id}})
+      localStorage.setItem("quiz_id",quiz_id);
+      this.$router.push({ name: 'qtse_quiz_show', params: {quiz_id:quiz_id}})
     },
     onClickEditQuiz(quiz_id){
-      this.$router.push({ name: 'quiz_edit', params: {quiz_id:quiz_id}})
+      localStorage.setItem("quiz_id",quiz_id);
+      this.$router.push({ name: 'qtse_quiz_edit', params: {quiz_id:quiz_id}})
     },
     async onClickRemoveQuiz(quiz_id){
       this.dialog_load.status = true

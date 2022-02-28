@@ -14,8 +14,9 @@
       elevation="2"
     >
     
-    <v-btn class="ma-2" tile  color="success" @click="onClickMenu('/quiz_list')">
-      <v-icon left>mdi-checkbox-multiple-blank</v-icon> Management Online Test
+    <v-btn class="ma-2" tile  color="success" @click="onClickMenu('/qtse_quiz_list')">
+      <v-icon left>mdi-checkbox-multiple-blank</v-icon> 
+      <b>Management Online Test</b>
     </v-btn>
     
     <v-btn 
@@ -23,8 +24,9 @@
           tile 
           color="#5D83B2" 
           dark
-          @click="onClickMenu('/depart_list')">
-           <v-icon left>mdi-pencil</v-icon> Department
+          @click="onClickMenu('/qtse_depart_list')">
+           <v-icon left>mdi-pencil</v-icon> 
+           <b> Department </b>
    </v-btn>
 
     </v-alert>
@@ -41,7 +43,9 @@
          <div class="d-flex flex-no-wrap justify-space-between">
               <div>
             <v-card-title class="headline">All Applicant</v-card-title>
-            <v-card-subtitle class="mt-2"><h1>{{count_all_app}}</h1></v-card-subtitle>
+              <v-card-subtitle class="mt-2">
+              <h1><v-icon class="mdi-48px" >mdi-chart-box-outline</v-icon><font class="ma-1">{{count_all_app}}</font></h1>
+              </v-card-subtitle>
             </div>
             <v-avatar
                 class="ma-3"
@@ -71,7 +75,10 @@
                   v-text="item.title"
                 ></v-card-title>
 
-                <v-card-subtitle class="mt-2" ><h1>{{item.count}}</h1></v-card-subtitle>
+                <v-card-subtitle class="mt-2">
+                    <h1><v-icon class="mdi-48px">{{item.icon}}</v-icon>{{item.count}}</h1>
+                </v-card-subtitle>
+                
               </div>
 
               <v-avatar
@@ -94,16 +101,20 @@
 
   export default {
 	async  mounted () {
-      alert(api.isLoggedInAdmin())
-	  var data = [];
+
+    if(!api.isLoggedInAdmin()){
+      this.$router.push("/qtse_login_admin"); 
+    }
+
+    var data = [];
 	  this.count_all_app =  await api.getReportCountAll()
       data = await api.getReportCountRole();
     
     if(data.length > 0 )
     {
-    for(var i = 0 ; i < this.items.length ; i++){ 
-      this.items[i].count   = data[i].count;
-    }
+      for(var i = 0 ; i < this.items.length ; i++){ 
+        this.items[i].count   = data[i].count;
+      }
     }
 
   	},
@@ -117,15 +128,16 @@
           src: 'https://image.flaticon.com/icons/svg/2422/2422042.svg',
           title: 'Engineer & Management',
           count: null,
-          link: "/user_list_engineer"
+          link: "/user_list_engineer",
+          icon: "mdi-file-table-outline"
         },
-        {
-          color: '#434247',
-          src: 'https://image.flaticon.com/icons/svg/2942/2942804.svg',
-          title: 'Production',
-          count: null,
-          link: "/user_list_production"
-        },
+        // {
+        //   color: '#434247',
+        //   src: 'https://image.flaticon.com/icons/svg/2942/2942804.svg',
+        //   title: 'Production',
+        //   count: null,
+        //   link: "/user_list_production"
+        // },
       ],
     }),
     methods: {

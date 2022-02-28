@@ -9,7 +9,7 @@
     <v-alert
       color="primary"
       dark
-      icon="mdi-camera-timer"
+      icon="mdi-file-table-box-multiple"
       border="left"
       prominent
     >
@@ -33,15 +33,16 @@
 
 
       <v-alert v-if="questionIndex == quiz.questions.length " >
-        
-        <v-alert type="success" max-width="260px">
-          Complete Quiz
-        </v-alert> 
-        
-      <v-btn class="ma-2" color="warning" v-on:click="review()" :disabled="questionIndex < 1" >Review Quiz</v-btn>
-      <v-btn class="ma-2" color="primary" v-on:click="done_quiz()" >Finish Quiz</v-btn>
+      <v-btn class="ma-2"  v-on:click="review()" :disabled="questionIndex < 1" >Review Quiz</v-btn>
+      <v-btn class="ma-2"  v-on:click="done_quiz()" >Finish Quiz</v-btn>
       <div  style="visibility: hidden;">Total score: {{score()}} / {{ quiz.questions.length }}</div>  
       </v-alert>
+      
+
+      <v-card>
+
+      </v-card>
+
       
       <v-row></v-row>
       <div
@@ -66,7 +67,7 @@
       
         <div v-if="quiz.questions[questionIndex].ans_type == 'Choice'"  class="optionContainer">       
              
-             <img 
+              <img 
               @click="show_full_pic(quiz.questions[questionIndex].img)"
               style="border-style: groove;"
               class="ma-1"
@@ -175,6 +176,7 @@ export default {
     Counter
   },
   async mounted() {
+    
     var temp_id = this.quiz_id; 
 
     if (temp_id  === undefined || temp_id == null) {
@@ -188,6 +190,8 @@ export default {
       this.quizdata = await api.getquizShow({ q_id });
     }
 
+    console.log(this.quizdata)
+
     this.title_quiz.quiz_name = this.quizdata.quiz_name;
     this.title_quiz.quiz_type = this.quizdata.quiz_type;
     this.title_quiz.quiz_time = this.quizdata.quiz_time;
@@ -200,8 +204,7 @@ export default {
     this.quiz = {
       questions: this.shuffled,
     }
-    //this.userResponses = Array(this.quiz.questions.length).fill(null);
-    
+  
     for(var i = 0 ; i < this.quiz.questions.length;i++){
       this.userResponses.push({ans_data:""})
     }
