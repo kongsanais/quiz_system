@@ -24,7 +24,8 @@
       </v-btn>
 
     <v-btn v-if="$store.state.isLogged && ($store.state.role == 'Admin')" icon @click="onClickLogOffAdmin">
-        <v-icon>mdi-export</v-icon>
+        (A)<v-icon>mdi-export</v-icon>
+
       </v-btn>
 
       <v-btn icon>

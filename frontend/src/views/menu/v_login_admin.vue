@@ -16,9 +16,9 @@
             lazy-validation
           >
             <!-- Username -->
+             <b>Email</b>
             <v-text-field
               name="email"
-              label="Email"
               id="email"
               v-model="account.email"
               :rules="[
@@ -31,9 +31,9 @@
             />
 
             <!-- Password -->
+            <b>Password</b>
             <v-text-field
               name="password"
-              label="Password"
               id="password"
               v-model="account.password"
               :append-icon="isShowPassword ? 'mdi-form-textbox-password' : 'mdi-onepassword'"
@@ -115,7 +115,7 @@ export default {
   mounted() {
     if (api.isLoggedInAdmin()) 
     {
-      this.$router.push("/qtse_admin_home");
+      this.$router.push("/main_manu");
     }
   },
   data() {

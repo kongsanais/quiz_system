@@ -1,6 +1,7 @@
 <template>
  <v-container>
    <v-card>
+
     <v-container class="pa-1">
       <v-row class="mt-1" dense>
 
@@ -18,7 +19,7 @@
             tile
             outlined
             color="#6D8764"
-            @click="onClickMenu('/qtse_admin_home')"
+            @click="onClickMenu('/pnc_admin_home')"
           >
              <v-icon left>mdi-shield-account</v-icon><b> Admin</b>
           </v-btn>
@@ -28,15 +29,14 @@
             tile
             outlined
             color="primary"
-            @click="onClickMenu('/qtse_quiz_add')"
+            @click="onClickMenu('/pnc_quiz_add')"
           >
-            <v-icon left>mdi-folder-multiple-plus-outline</v-icon> <b> Add Quiz </b>
+            <v-icon left>mdi-folder-multiple-plus-outline</v-icon> <b> Add Content </b>
           </v-btn>
         </v-alert>
         </v-col>
 
         <v-col>
-
               <v-card
                class="mt-3 ml-2 mr-2"
               >
@@ -56,7 +56,7 @@
         <v-data-table :search="search" :headers="headers" :items="itemsWithIndex">
         <!-- table top section -->
         <template v-slot:top>
-          <v-toolbar-title><v-icon> mdi-format-list-checkbox </v-icon><b>Quiz List</b></v-toolbar-title>
+          <v-toolbar-title><v-icon> mdi-format-list-checkbox </v-icon><b> PNC Content List</b></v-toolbar-title>
           <v-toolbar flat color="white">
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-text-field
@@ -75,11 +75,18 @@
         <!-- table tr section -->
             <template v-slot:item="{ item }">
               <tr class="mb-2">
-                <td>{{ item.index + 1}}</td>
-                <td>{{ item.quiz_name }}</td>
-                <td>{{ item.quiz_type }}</td>
-                <td>{{ item.quiz_time }}</td>
-                <td>
+                <td align="center" >{{ item.index + 1}}</td>
+                <td align="center">
+                   <v-img width="50" height="50"
+                       src="../../../assets/y_vdo.png"
+                       @click="show_vdo(item.quiz_vdo_url)"                   
+                   >
+                  </v-img>
+                </td>
+                <td align="center" >{{ item.quiz_name }}</td>
+                <td align="center" >{{ item.quiz_type }}</td>
+               <!-- <td>{{ item.quiz_time }}</td>-->
+                <td align="center">
 
             <v-btn color="info" class="mr-1"  @click="onClickReviewTest(item._id)" fab x-small>
               <v-icon>mdi-view-day-outline</v-icon>
@@ -140,7 +147,6 @@
     
   </v-card>
   
-
     <v-dialog
       v-model="dialog_load.status"
       hide-overlay
@@ -163,6 +169,44 @@
     </v-dialog>
 
 
+    <v-dialog
+      v-model="d_show_vdo"
+      width="500"
+    >
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          <v-icon>mdi-square-circle</v-icon>  Video 
+        </v-card-title>
+
+        <v-card-text>
+                <LazyYoutube
+                class="ma-1"
+                ref="youtubeLazyVideo"
+                :src="youtubeLink"
+                aspect-ratio="16:9"
+                thumbnail-quality="standard"
+               />
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="error"
+            dark
+            @click="d_show_vdo = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
+
+
+
   </v-container>
 </template>
 
@@ -171,20 +215,26 @@ import api from "@/services/api";
 export default {
   async mounted() {
      this.dialog_load.status = true
-    const data = await api.getAllQuizlist();
+     var data = await api.getAllQuizlist();
+
+      data =  data.filter(function(data) {
+      return data.quiz_type == "Partner Collab";
+      });
+           
     if(data){
      this.dialog_load.status = false 
     }
-    this.item_quiz = data;
+
+     this.item_quiz = data;
   },
   data: () => ({
     qq_id:"",
     headers: [
-      { text: "Index", value: "index" },
-      { text: "Quiz Name", value: "quiz_name" },
-      { text: "Quiz Type", value: "quiz_type" },
-      { text: "Quiz Time", value: "quiz_time" },
-      { text: "Action", value: "" },
+      { text: "Index", value: "index",align: 'center'},
+      { text: "VDO", value: "index",align: 'center',},
+      { text: "Content Name", value: "quiz_name",align: 'center'},
+      { text: "Content Type", value: "quiz_type",align: 'center'},
+      { text: "Action", value: "",align: 'center'},
     ],
     item_quiz: [],
     search: "",
@@ -203,18 +253,24 @@ export default {
       sub_text: "",
       router: "",
     },
+    d_show_vdo : false,
+    youtubeLink : ""
   }),
   methods: {
+    show_vdo(link){
+      this.d_show_vdo = true
+      this.youtubeLink  = link
+    },
     onClickMenu(link) {
       this.$router.push(link).catch((err) => {});
     },
     onClickReviewTest(quiz_id){
       localStorage.setItem("quiz_id",quiz_id);
-      this.$router.push({ name: 'qtse_quiz_show', params: {quiz_id:quiz_id}})
+      this.$router.push({ name: 'pnc_quiz_show', params: {quiz_id:quiz_id}})
     },
     onClickEditQuiz(quiz_id){
       localStorage.setItem("quiz_id",quiz_id);
-      this.$router.push({ name: 'qtse_quiz_edit', params: {quiz_id:quiz_id}})
+      this.$router.push({ name: 'pnc_quiz_edit', params: {quiz_id:quiz_id}})
     },
     async onClickRemoveQuiz(quiz_id){
       this.dialog_load.status = true
@@ -222,10 +278,16 @@ export default {
       if(data.result === true ){
         this.dialog_load.status = false
         this.dialog_messenger.status  =  false 
+
         const data = await api.getAllQuizlist();
         this.item_quiz = data;
+
+        
+        //location.reload();
       }
+      
     }///remove quiz
+    
   },
   computed: {
     itemsWithIndex() {

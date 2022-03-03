@@ -22,6 +22,7 @@ export default {
     Footer
   },
   mounted() {
+    
     this.$store.dispatch({ type: "restoreLogin" });
   },
 };

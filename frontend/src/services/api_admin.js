@@ -23,7 +23,7 @@ export const logoffAdmin = async () => {
     await httpClient.post(admin.LOGOUT_URL);
     localStorage.removeItem(admin.TOKEN_KEY);
     localStorage.removeItem(admin.ROLE);
-    router.push("/qtse_admin_login");
+    router.push("/main_admin_login");
  };
 
   
@@ -36,7 +36,7 @@ export const loginAdmin = async values =>
     localStorage.setItem(admin.USERNAME, result.data.admin.eng_firstname);
     localStorage.setItem(admin.TOKEN_KEY, result.data.token);
     localStorage.setItem(admin.ROLE, result.data.admin.role)
-    router.push("/qtse_admin_home")
+    router.push("/main_manu")
     return true;
   } else {
     return false;

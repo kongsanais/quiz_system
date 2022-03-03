@@ -20,7 +20,10 @@ const quizSchema = new mongoose.Schema({
     quiz_question: [{ 
         type: Schema.Types.ObjectId, 
         ref: 'Question' 
-    }]
+    }],
+    quiz_vdo_url : {
+        type : String 
+    }
 },{
     timestamps: true
 })

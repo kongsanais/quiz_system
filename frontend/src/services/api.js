@@ -37,7 +37,7 @@ const login = async values =>
 
     if(role == "Engineer" || role == "Production")
     {
-      router.push("/profile");
+      router.push("/qtse_profile");
     }
     else if (role == "Admin")
     {

@@ -7,6 +7,9 @@ const depSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
+    dep_type:{
+        type :String, 
+    },
     dep_quiz: [{ 
         type: Schema.Types.ObjectId, 
         ref: 'Quiz',

@@ -18,9 +18,9 @@
             tile
             outlined
             color="#232F3E"
-            @click="onClickMenu('/qtse_quiz_list')"
+            @click="onClickMenu('/pnc_quiz_list')"
           >
-            <v-icon left>mdi-order-bool-descending</v-icon> <b>Quiz List</b>
+            <v-icon left>mdi-order-bool-descending</v-icon> <b>Content List</b>
           </v-btn>
         </v-alert>
       </v-row>
@@ -28,40 +28,97 @@
 
     <v-container>
       <v-form @submit.prevent="saveQuiz" ref="form">
-      <!-- {{ quiz }}
-      {{ question_array }} -->
       <v-row>
         <v-progress-linear
           color="black darken-1"
           rounded
           value="0"
         ></v-progress-linear>
+
+
         <v-col class="d-flex" xl="12" lg="12" md="12" sm="12" cols="12">
-          <b class="mt-5" ><h3>Quiz Add</h3></b>
+          <b class="mt-5" ><h3>Content Add</h3></b>
           <v-spacer></v-spacer>
               <v-btn @click="saveQuiz()" class="ma-2" tile outlined color="success"><v-icon left>mdi-pencil</v-icon><b> SAVE </b></v-btn>
         </v-col>
-        <v-col class="d-flex" xl="6" lg="6" md="6" sm="12" cols="12">
-          <v-text-field 
-          v-model="quiz.quiz_name" 
-          label="Quiz Name" 
-          :rules="[(v1) => !!v1 || 'Please Enter Quiz Name']"
-          clearable>
-          </v-text-field>
-        </v-col>
-        <v-col class="d-flex" xl="6" lg="6" md="6" sm="12" cols="12">
-          <v-select
-            @change="setupQuiz_Seq"
-            v-model="quiz.quiz_type"
-            :items="['English', 'Specific','Management','Attitude ']"
-            menu-props="auto"
-            label="Select Quiz Type"
-            :rules="[(v1) => !!v1 || 'Please Select Quiz Type']"
-            hide-details
-            prepend-icon="mdi-format-list-bulleted-type"
-            single-line
-          ></v-select>
-        </v-col>
+
+
+
+         <v-col  class="d-flex" xl="6" lg="6" md="6" sm="12" cols="12">
+             <v-row>
+               <v-col cols="12" >
+                <LazyYoutube
+                ref="youtubeLazyVideo"
+                :src="youtubeLink"
+                aspect-ratio="16:9"
+                thumbnail-quality="standard"
+               />
+               </v-col>
+
+               <!-- <v-col cols="12" >
+                 <v-btn class="ma-1 " @click="handleClick('playVideo', 'youtubeLazyVideo')" small> <v-icon>mdi-play-box</v-icon>Play</v-btn>
+                 <v-btn class="ma-1" @click="handleClick('stopVideo', 'youtubeLazyVideo')"  small> <v-icon>mdi-play-outline</v-icon>Stop</v-btn>
+                 <v-btn class="ma-1" @click="handleClick('pauseVideo', 'youtubeLazyVideo')" small> <v-icon>mdi-play-pause</v-icon>Pause</v-btn>
+                 <v-btn class="ma-1" @click="handleClick('resetView', 'youtubeLazyVideo')"  small> <v-icon>mdi-cog-refresh</v-icon>Reset</v-btn>   
+               </v-col> -->
+             
+             </v-row>
+         </v-col>
+
+          
+        
+         <v-col  class="d-flex" xl="6" lg="6" md="6" sm="12" cols="12">
+                 <v-row>
+                   <v-col>
+                  <v-form>
+                  
+                  <v-text-field 
+                  v-model="quiz.quiz_name" 
+                  label="Content Name" 
+                  :rules="[(v1) => !!v1 || 'Please Enter Content Name']"
+                  clearable>
+                </v-text-field>
+
+
+                <v-select
+                  @change="setupQuiz_Seq"
+                  v-model="quiz.quiz_type"
+                  :items="['Partner Collab']"
+                  menu-props="auto"
+                  label="Select Course Type"
+                  :rules="[(v1) => !!v1 || 'Please Select Course Type']"
+                  hide-details
+                  prepend-icon="mdi-format-list-bulleted-type"
+                  single-line
+                ></v-select>
+            
+                <v-text-field
+                  prepend-icon="mdi-key-outline"
+                  label="VDO ID"
+                  v-model="vdo_id"
+                  @keyup="subId_ToURL()"
+                ></v-text-field>  
+
+                  <v-text-field
+                  disabled
+                  label="FULL VDO URL"
+                  class="input" 
+                  type="text" 
+                  @keyup="handleSearch($event, 'youtube')" 
+                  :value="youtubeLink"
+                  >
+                  </v-text-field>
+                
+                    </v-form>
+
+                   </v-col>
+                 </v-row>
+
+         </v-col>
+
+        
+
+      <!-- 
         <v-col class="d-flex" xl="3" lg="3" md="3" sm="12" cols="12">
           <v-text-field
             v-model="quiz.quiz_time"
@@ -71,6 +128,8 @@
             :rules="[(v1) => !!v1 || 'Please Enter Time / Minute']"
           ></v-text-field>
         </v-col>
+       -->
+        
       </v-row>
       <v-row>
         <v-spacer></v-spacer>
@@ -85,7 +144,7 @@
 
         <v-card class="ma-2 ">
           <v-card-title>
-            Quiz List
+             <v-icon>mdi-label-multiple</v-icon> Management
             <v-spacer></v-spacer>
             
       <v-dialog v-model="dialog" persistent max-width="600px">
@@ -317,16 +376,17 @@
 
 <script>
 import api from "@/services/api";
-
 export default {
   async mounted() {
   },
   data: () => ({
+    vdo_id : '',
     quiz: {
       quiz_name: null,
-      quiz_type: null,
+      quiz_type: "Partner Collab",
       quiz_sequence :null,
       quiz_time: null,
+      quiz_vdo_url : null
     },
     question_array: [],  
     ans_array: [],  
@@ -367,9 +427,23 @@ export default {
       text: "",
       sub_text: "",
       router: "",
-    }
+    },
+    youtubeLink:'https://www.youtube.com/watch?v=',
   }),
   methods: {
+    subId_ToURL(){
+      this.youtubeLink = 'https://www.youtube.com/watch?v='
+      this.youtubeLink   = this.youtubeLink + this.vdo_id;
+    },
+     handleClick(event, ref) {
+      this.$refs[ref][event]()
+    },
+    handleSearch(e, platform) {
+      if(platform === 'youtube')
+        this.youtubeLink = e.target.value;
+      else
+        this.vimeoLink = e.target.value;
+    },
     onFileSelected(event) {
       const reader = new FileReader();
       reader.onload = event => {
@@ -429,11 +503,17 @@ export default {
      async saveQuiz(){
         this.dialog_load.status = true
         let formData = new FormData();
-        const { quiz_name, quiz_type, quiz_time ,quiz_sequence } = this.quiz;
+
+        var { quiz_name, quiz_type, quiz_time ,quiz_sequence ,quiz_vdo_url } = this.quiz;
+        
+        // vdo 
+        quiz_vdo_url = this.youtubeLink
+        quiz_time =  '-'
 
         formData.append("quiz_name", quiz_name);
         formData.append("quiz_type", quiz_type);
         formData.append("quiz_time", quiz_time);
+        formData.append("quiz_vdo_url",quiz_vdo_url);
         formData.append("quiz_sequence", quiz_sequence);
         formData.append("ques",JSON.stringify(this.question_array)) 
 
@@ -443,12 +523,13 @@ export default {
         }
 
         const result =  await api.addQuiz(formData);
+
         if(result){
           this.dialog_load.status = false
           this.dialog_messenger.text = "Add Quiz Success";
           this.dialog_messenger.sub_text = "";
           this.dialog_messenger.status = true;
-          this.dialog_messenger.router = "/qtse_quiz_list";
+          this.dialog_messenger.router = "/pnc_quiz_list";
         }else{
           this.dialog_messenger.text = "Check your Information";
           this.dialog_messenger.sub_text = "";
@@ -461,7 +542,7 @@ export default {
     },
     onClickMenu(link) {
     this.dialog_messenger.status = false;
-      if (link == "/qtse_quiz_list") {
+      if (link == "/pnc_quiz_list") {
         this.$router.push(link).catch((err) => {});
       }
     },
@@ -486,3 +567,29 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+h2 {
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+.input {
+  padding: 5px;
+  max-width: 720px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 90%;
+}
+
+.buttons {
+  margin-top: 25px;
+}
+</style>

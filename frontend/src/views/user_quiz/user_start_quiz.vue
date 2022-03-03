@@ -9,7 +9,7 @@
     <v-alert
       color="primary"
       dark
-      icon="mdi-file-table-box-multiple"
+      icon="mdi-camera-timer"
       border="left"
       prominent
     >
@@ -33,16 +33,15 @@
 
 
       <v-alert v-if="questionIndex == quiz.questions.length " >
-      <v-btn class="ma-2"  v-on:click="review()" :disabled="questionIndex < 1" >Review Quiz</v-btn>
-      <v-btn class="ma-2"  v-on:click="done_quiz()" >Finish Quiz</v-btn>
+        
+        <v-alert type="success" max-width="260px">
+          Complete Quiz
+        </v-alert> 
+        
+      <v-btn class="ma-2" color="warning" v-on:click="review()" :disabled="questionIndex < 1" >Review Quiz</v-btn>
+      <v-btn class="ma-2" color="primary" v-on:click="done_quiz()" >Finish Quiz</v-btn>
       <div  style="visibility: hidden;">Total score: {{score()}} / {{ quiz.questions.length }}</div>  
       </v-alert>
-      
-
-      <v-card>
-
-      </v-card>
-
       
       <v-row></v-row>
       <div
@@ -62,52 +61,51 @@
             <!-- {{quiz}} -->
           </h2>
         </v-alert>
+                <b v-if="quiz.questions[questionIndex].img != null"><font color="red"> *** Click On imges to Show Imges Full Size</font></b>
+        
+                <div>
+                  <img  
+                @click="show_full_pic(quiz.questions[questionIndex].img)"
+                v-if="quiz.questions[questionIndex].img != null"
+                :src="quiz.questions[questionIndex].img | quizImgUrl"
+                >
+                </div>
 
+                  <!-- <v-img 
+                @click="show_full_pic(quiz.questions[questionIndex].img)"
+                v-if="quiz.questions[questionIndex].img != null"
+                :src="quiz.questions[questionIndex].img | quizImgUrl"
+                aspect-ratio="1"
+                max-width="40%"
+              ></v-img> -->
+
+              <!-- <div>
+                <v-img 
+                @click="show_full_pic(quiz.questions[questionIndex].img)"
+                v-if="quiz.questions[questionIndex].img != null"
+                :src="quiz.questions[questionIndex].img | quizImgUrl"
+                aspect-ratio="1"
+                width="50%"
+              ></v-img>
+              </div> -->
 
       
         <div v-if="quiz.questions[questionIndex].ans_type == 'Choice'"  class="optionContainer">       
-             
-              <img 
-              @click="show_full_pic(quiz.questions[questionIndex].img)"
-              style="border-style: groove;"
-              class="ma-1"
-              v-if="quiz.questions[questionIndex].img != null"
-              :src="quiz.questions[questionIndex].img | quizImgUrl"
-              aspect-ratio="1"
-              max-width="700px"
-              max-height="700px"
-              width="700px" 
-              height="600px"
-              >
-            
-          <div
+           <div
             class="ma-2 font"
             v-for="(ans, index) in quiz.questions[questionIndex].ans"
             @click="selectOption(index)"
             :key="index"
            >      
 
-        <v-btn  :class="{'green': userResponses[questionIndex].ans_data == index}" small>{{ index | charIndex }}.{{ ans.ans}}</v-btn>
-        <v-icon v-if="ans.correct == true">mdi-check </v-icon>
+        <v-btn  :class="{'green': userResponses[questionIndex].ans_data == index}" small>{{ index +1 }}.{{ ans.ans}}</v-btn>
+        <!-- <v-icon v-if="ans.correct == true">mdi-check </v-icon> -->
          
           </div>
         </div>
 
          
         <div  v-if="quiz.questions[questionIndex].ans_type == 'Text'">
-                <!-- <v-btn @click="show_full_pic()">click</v-btn> -->
-             <img 
-              @click="show_full_pic(quiz.questions[questionIndex].img)"
-              style="border-style: groove;"
-              class="ma-1"
-              v-if="quiz.questions[questionIndex].img != null"
-              :src="quiz.questions[questionIndex].img | quizImgUrl"
-              aspect-ratio="1"
-              max-width="700px"
-              max-height="700px"
-              width="700px" 
-              height="600px"
-              >
               <v-textarea
                @keyup="with_text()"
                 v-model="userResponses[questionIndex].ans_data"
@@ -134,35 +132,39 @@
       </div>
     </v-card>
 
-      <!-- {{ quiz.questions[questionIndex].img }} -->
 
-     <!-- <div v-if="quiz.questions[questionIndex].img">have</div>
-     <div v-else>not have</div> -->
-
-     <v-dialog
+      <v-dialog
       v-model="show_full_picture"
       width="70%"
     >
-      <!-- {{my_img_url}} -->
-
-             <img 
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Images          
+          <v-spacer></v-spacer>
+          <v-btn
+            color="error"
+            dark
+            @click="show_full_picture = false"
+          >
+            CLOSE
+          </v-btn>
+        </v-card-title>
+              <img 
               @click="show_full_pic(quiz.questions[questionIndex].img)"
               style="border-style: groove;"
               class="ma-1"
               v-if="my_img_url != null"
               :src="my_img_url | quizImgUrl"
               aspect-ratio="1"
-              max-width="700px"
-              max-height="700px"
-              width="700px" 
-              height="600px"
+              width="100%"
               >
+        <v-card-actions>
 
-     <!-- <div v-if="quiz.questions[questionIndex].img">have</div>
-     <div v-else>not have</div>
-     {{ quiz.questions[questionIndex].img }} -->
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
-    </v-dialog> 
+
 
 
       </v-container>
@@ -176,9 +178,8 @@ export default {
     Counter
   },
   async mounted() {
-    
-    var temp_id = this.quiz_id; 
-
+    var temp_id = this.quiz_id;
+     
     if (temp_id  === undefined || temp_id == null) {
       let q_id = localStorage.getItem("quiz_id");
       this.main_id  = q_id
@@ -200,11 +201,12 @@ export default {
     .map((a) => a.value)
 
     this.quiz = {
-      questions: this.shuffled,
+      questions: this.quizdata.quiz_question,
     }
-  
+    //this.userResponses = Array(this.quiz.questions.length).fill(null);
+    
     for(var i = 0 ; i < this.quiz.questions.length;i++){
-      this.userResponses.push({ans_data:""})
+      this.userResponses.push({ans_data:null})
     }
     
 
@@ -230,8 +232,8 @@ export default {
       start_quiz: true,
       ans_text : "",
       temp_text : "",
-      show_full_picture : false,
-      my_img_url : "" 
+      my_img_url : "",
+      show_full_picture : false 
     };
   },
   filters: {

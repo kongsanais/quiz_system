@@ -16,6 +16,7 @@ export const department = {
   DEPARTMENT_ONLY : 'api/department/get_only_depart',
   ADD_DEPART : 'api/department/add',
   GET_DOING_QUIZ : 'api/department/department_list_withquiz',
+  GET_DOING_QUIZ_WITH_ID : 'api/department/department_list_with_ID',
   REMOVE_DEPART : 'api/department/remove',
 };
 

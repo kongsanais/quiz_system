@@ -16,7 +16,7 @@
             tile
             outlined
             color="#232F3E"
-            @click="onClickMenu('/qtse_admin_home')"
+            @click="onClickMenu('/pnc_admin_home')"
           >
             <v-icon left>mdi-shield-account</v-icon> Admin
           </v-btn>
@@ -26,7 +26,7 @@
             tile
             outlined
             color="#232F3E"
-            @click="onClickMenu('/qtse_quiz_list')"
+            @click="onClickMenu('/pnc_quiz_list')"
           >
             <v-icon left>mdi-clipboard-multiple</v-icon> Quiz List
           </v-btn>

@@ -12,6 +12,9 @@ import { resumeUrl} from "@/services/constants";
 import { quizImgUrl} from "@/services/constants";
 import moment from "moment";
 
+import LazyYoutube from "vue-lazytube";
+Vue.component("LazyYoutube", LazyYoutube);
+Vue.use(LazyYoutube);
 new Vue({
   router,
   store,

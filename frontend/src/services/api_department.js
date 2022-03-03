@@ -29,8 +29,14 @@ export const getOnlydepart  = async () => {
 export const getDoingquiz = async _id  => {
     let result  =  await httpClient.get(department.GET_DOING_QUIZ + "/" +`${_id}`);
     return result.data;
-  }
+}
 
+
+export const getDoingquizID = async values => {
+    let result  =  await  httpClient.post(department.GET_DOING_QUIZ_WITH_ID,values);
+    console.log(values)
+    return result.data;
+}
 
 
 

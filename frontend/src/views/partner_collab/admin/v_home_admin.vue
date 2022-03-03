@@ -7,7 +7,8 @@
     <v-container class="pa-1">
     <v-row  class="mt-1" dense>
     
-    <v-col cols="10">
+
+    <v-col cols="12" xl="10" sm="6" md="9">
     <v-alert
       class="mt-3 ml-2 mr-2"
       border="left"
@@ -21,25 +22,37 @@
       <b>Main Portal</b>
     </v-btn>
     
-    <v-btn class="ma-2" tile  color="success" @click="onClickMenu('/qtse_quiz_list')">
+    <v-btn class="ma-2" tile  color="success" @click="onClickMenu('/pnc_quiz_list')">
       <v-icon left>mdi-checkbox-multiple-blank</v-icon> 
-      <b>Management Online Test</b>
+      <b>Content</b>
     </v-btn>
-    
-    <v-btn 
+
+     <v-btn 
           class="ma-2" 
           tile 
-          color="#5D83B2" 
+          color="#F57C00" 
           dark
-          @click="onClickMenu('/qtse_depart_list')">
-           <v-icon left>mdi-pencil</v-icon> 
-           <b> Department </b>
+          @click="onClickMenu('/pnc_depart_list')">
+           <v-icon left>mdi-account-box</v-icon> 
+           <b>Course</b>
      </v-btn>
+
+     <v-btn 
+          class="ma-2" 
+          tile 
+          color="#0F3460" 
+          dark
+          @click="onClickMenu('/pnc_register')">
+           <v-icon left>mdi-account-box</v-icon> 
+           <b>User</b>
+     </v-btn>
+
+
+
     </v-alert>
     </v-col>
 
-
-    <v-col cols="2">    
+    <v-col cols="12" xl="2" sm="6" md="3" >    
     <v-card
       class="mt-3 ml-2 mr-2"
     >
@@ -51,34 +64,13 @@
     </v-card>
     </v-col>
 
+
     </v-row>
     </v-container>
 
-    
-
     <v-container>
+
       <v-row dense>
-        <v-col cols="12">
-          <v-card
-            color="#0D47A1"
-            dark
-          >
-         <div class="d-flex flex-no-wrap justify-space-between">
-              <div>
-            <v-card-title class="headline">All Applicant</v-card-title>
-              <v-card-subtitle class="mt-2">
-              <h1><v-icon class="mdi-48px" >mdi-chart-box-outline</v-icon><font class="ma-1">{{count_all_app}}</font></h1>
-              </v-card-subtitle>
-            </div>
-            <v-avatar
-                class="ma-3"
-                size="125"
-                tile
-              >
-          </v-avatar>
-          </div>
-          </v-card>
-        </v-col>
 
         <v-col
           v-for="(item, i) in items"
@@ -97,8 +89,11 @@
                   v-text="item.title"
                 ></v-card-title>
 
-                <v-card-subtitle class="mt-2">
-                    <h1><v-icon class="mdi-48px">{{item.icon}}</v-icon>{{item.count}}</h1>
+                <v-card-subtitle class="mt-2 ml-3">
+                    <h1>
+                    <v-icon class="mdi-48px">{{item.icon}}</v-icon>
+                    <font class="ma-1 ml-3">{{item.count}}</font>
+                    </h1>
                 </v-card-subtitle>
                 
               </div>
@@ -108,11 +103,37 @@
                 size="125"
                 tile
               >
-                <v-img :src="item.src"></v-img>
+                <!-- <v-img :src="item.src"></v-img> -->
               </v-avatar>
             </div>
           </v-card>
         </v-col>
+
+        <v-col cols="12">
+          <v-card
+            color="#0D47A1"
+            dark
+          >
+         <div class="d-flex flex-no-wrap justify-space-between">
+              <div>
+            <v-card-title class="headline">Training Course</v-card-title>
+              <v-card-subtitle class="mt-2 ml-3">
+              <h1>
+                <v-icon class="mdi-48px" >mdi-account-supervisor-circle-outline</v-icon>
+                <font class="ma-1 ml-3">{{count_all_app}}</font>
+               </h1>
+              </v-card-subtitle>
+            </div>
+            <v-avatar
+                class="ma-3"
+                size="125"
+                tile
+              >
+          </v-avatar>
+          </div>
+          </v-card>
+        </v-col>
+        
       </v-row>
     </v-container>
   </v-card>
@@ -145,14 +166,14 @@
 	  count_all_engineer: null ,
 	  count_all_production: null ,
       items: [
-        {
-          color: '#1F7087',
-          src: 'https://image.flaticon.com/icons/svg/2422/2422042.svg',
-          title: 'Engineer & Management',
-          count: null,
-          link: "/d_engineer",
-          icon: "mdi-file-table-outline"
-        },
+         {
+           color: '#1F7087',
+           src: 'https://image.flaticon.com/icons/svg/2422/2422042.svg',
+           title: 'PARTNER',
+           count: null,
+           link: "/d_engineer",
+           icon: "mdi-file-table-outline"
+         },
         // {
         //   color: '#434247',
         //   src: 'https://image.flaticon.com/icons/svg/2942/2942804.svg',

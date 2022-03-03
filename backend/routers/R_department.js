@@ -45,6 +45,10 @@ router.get('/department/department_list', async (req,res)=>{
     res.send({Dep_list})
 })
 
+router.post('/department/department_list_with_ID', async (req,res)=>{
+    let Dep_list  = await Dep.find({_id:req.body.id}).populate('dep_quiz').sort({createdAt: -1})
+    res.send({Dep_list})
+})
 
 
 router.get('/department/get_only_depart', async (req,res)=>{
@@ -55,7 +59,11 @@ router.get('/department/get_only_depart', async (req,res)=>{
   
 router.post('/department/add', async (req, res) => {
     try{
-        const  data = new Dep({dep_name: req.body.depart_name , dep_quiz : req.body.select_quiz})
+        const  data = new Dep({
+            dep_name: req.body.depart_name ,
+            dep_type: req.body.course_type,
+            dep_quiz : req.body.select_quiz,
+        })
         const  value = await data.save(); 
         res.json({result: true , message: JSON.stringify(value)})
     }catch(error)
