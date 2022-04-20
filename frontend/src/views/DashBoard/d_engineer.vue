@@ -23,7 +23,6 @@
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-text-field
               v-model="search"
-              append-icon="search"
               label="Search"
               single-line
               hide-details
@@ -235,12 +234,8 @@
                 max-height="100"
               ></v-img>
             </td>
-            <td>{{ item.eng_prefix + " " + item.eng_firstname  + " " + item.eng_lastname | capitalize  }}</td>
-            <td>{{ item.age}}</td>
-            <td>{{ item.degree_education}}</td>
-            <td>{{ item.education}}</td>
             <td>{{item.majoy_education}}</td>
-            <td>{{item.gpa}}</td>
+            <td>{{ item.eng_prefix + " " + item.eng_firstname  + " " + item.eng_lastname | capitalize  }}</td>
             <td>                
               <ul v-if="item.score_quiz != ''">
                     <li v-for="(item,index) in item.score_quiz" :key="index">
@@ -321,15 +316,14 @@ export default {
       label_data:[],
       headers: [
           { text: 'Picture', value: "email"},
-          { text: 'Name', value: 'th_firstname' },
-          { text: 'Age' , value:'age'},
-          { text: 'Degree' , value:'degree_education'},
-          { text: 'Education' , value:'education'},
-          { text: 'Major'  , value:'majoy_education'},
-          { text: 'GPA'  , value:'gpa'},
-          {  text: 'Score Quiz' , value: 'score_quiz'},
+          { text: 'Partner Name'  , value:'majoy_education'},
+          {  text: 'Name' , value: 'score_quiz'},
+          {
+            text:  "Quiz" , value: ''
+          },
           { text: 'Reg.Date' , value:'createdAt'},
           { text: 'Action', value:'_id'},
+          
         ],
       data_dateTemplete: {
         date_dialog :false,

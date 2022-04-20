@@ -1,6 +1,7 @@
 <template>
  <v-container>
    <v-card>
+     <h2 class="ma-1"> Quiz Production Certificate </h2>
       <v-container class="pa-1">
       <v-row class="mt-1" dense>
         <v-col cols="11">
@@ -49,8 +50,7 @@
 
       </v-row>
     </v-container>
-  </v-card>
-
+   </v-card>
 
     <v-container> 
         <v-card>
@@ -252,7 +252,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
 
   </v-container>
 </template>

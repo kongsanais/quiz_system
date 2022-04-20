@@ -1,42 +1,43 @@
 <template>
  <v-container>
+   
    <v-card>
+     <h2 class="ma-1"> Partner Collab </h2>
       <v-container class="pa-1">
-      
-      <v-row class="mt-1" dense>
-        <v-col cols="10">
-        <v-alert
-          class="mt-3 ml-2 mr-2"
-          border="left"
-          colored-border
-          color="primary"
-          elevation="2"
-        >
 
-          <v-btn
-            class="ma-2"
-            tile
-            outlined
-            color="#6D8764"
-            @click="onClickMenu('/pnc_admin_home')"
+       <v-row class="mt-1" dense>
+          <v-col cols="10">
+          <v-alert
+           class="mt-3 ml-2 mr-2"
+           border="left"
+           colored-border
+           color="primary"
+           elevation="2"
           >
-            <v-icon left>mdi-shield-account</v-icon> <b>Admin</b>
-          </v-btn>
+
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="#6D8764"
+                @click="onClickMenu('/pnc_admin_home')"
+              >
+                <v-icon left>mdi-shield-account</v-icon> <b>Admin</b>
+              </v-btn>
 
 
-          <v-btn
-            class="ma-2"
-            tile
-            outlined
-            color="primary"
-            @click="dialog_addDepart = true"
-          >
-            <v-icon left>mdi-folder-multiple-plus-outline</v-icon> <b> Reg. Course </b>
-          </v-btn>
-
-          
-        </v-alert>
-        </v-col>
+                <v-btn
+                  class="ma-2"
+                  tile
+                  outlined
+                  color="primary"
+                  @click="dialog_addDepart = true"
+                >
+                  <v-icon left>mdi-folder-multiple-plus-outline</v-icon> <b> Reg. Course </b>
+                </v-btn>
+                
+              </v-alert>
+              </v-col>
 
 
           <v-col cols="12" xl="1" sm="6" md="3" >    
@@ -83,14 +84,48 @@
               <tr class="mb-2">
                 <td>{{ item.index + 1 }}</td>
                 <td>{{ item.dep_name}}</td>
-    
-                <td>
+
+                <!-- <td>
                   <ul id="example-1">
                     <li v-for="(item,index) in item.dep_quiz" :key="index">
                       {{index+1}} ) {{ item.quiz_name }}
                     </li>
-                  </ul>
-               </td>
+                   </ul>
+                </td>-->
+                 <td>
+                    <v-expansion-panels focusable>
+                      <v-expansion-panel
+                      >
+                        <v-expansion-panel-header>Content Management</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            
+                             <v-card>
+                                <v-list dense>
+                                  <v-subheader>Title</v-subheader>
+
+                                  <v-list-item-group
+                                    v-model="selectedItem"
+                                    color="primary"
+                                  >
+                                    <v-list-item
+                                      v-for="(item, i) in items"
+                                      :key="i"
+                                    >
+                                      <v-list-item-icon>
+                                        <v-icon v-text="item.icon"></v-icon>
+                                      </v-list-item-icon>
+                                      <v-list-item-content>
+                                        <v-list-item-title v-text="item.text"></v-list-item-title>
+                                      </v-list-item-content>
+                                    </v-list-item>
+                                  </v-list-item-group>
+                                </v-list>
+                              </v-card>
+
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                    </v-expansion-panels>
+                 </td>
 
                 <td>{{item.createdAt | formatDate}}</td>
                 <td>                       
@@ -98,6 +133,7 @@
             <!-- <v-btn color="warning" class="mr-1"  fab  x-small>
               <v-icon>mdi-playlist-edit</v-icon>
             </v-btn> -->
+
 
             <v-btn color="error" @click="onClickRemoveDepart(item._id)" class="mr-1" fab x-small>
               <v-icon>mdi-delete</v-icon>
@@ -127,7 +163,6 @@
                   </v-text-field>
                 </v-col>
 
-
                 <v-col cols="12" xl="12" sm="12" md="12">
                   <v-select
                     solo
@@ -142,16 +177,11 @@
                   </v-select>
                 </v-col>
 
-                  
-
                  <v-col cols="12" xl="4" sm="6" md="12">
                         <label for="">Course Type</label>
                        <v-text-field v-model="course_type"  disabled>
                       </v-text-field>
                  </v-col>
-
-
-
 
             </v-row>
           </v-container>
@@ -264,6 +294,12 @@ export default {
       sub_text: "",
       router: "",
     },
+    selectedItem: 1,
+      items: [
+        { text: 'Real-Time', icon: 'mdi-clock' },
+        { text: 'Audience', icon: 'mdi-account' },
+        { text: 'Conversions', icon: 'mdi-flag' },
+      ],
   }),
   async mounted() {
 
@@ -276,11 +312,8 @@ export default {
     
     var  data = await api.getAllQuizlist();
     this.item_quiz = data
-
-
-  
   },
-    methods: {
+  methods: {
       onClickMenu(link)  {
       this.$router.push(link).catch((err) => {});
       },    
@@ -324,6 +357,10 @@ export default {
        let depart_name = this.depart_name
        let select_quiz =  this.select_quiz 
        let course_type =  this.course_type 
+
+       alert(depart_name)
+       alert(select_quiz)
+       alert(course_type)
        
        const data = await api.addDepart({depart_name,select_quiz,course_type})
        this.dialog_addDepart = false
@@ -340,6 +377,11 @@ export default {
        if(data_real){
          this.dialog_load.status = false
        }
+
+      /*clear output */
+       this.depart_name = ''
+       this.select_quiz =  []
+
 
       }
   },

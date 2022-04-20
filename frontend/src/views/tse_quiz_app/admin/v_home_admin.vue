@@ -4,9 +4,10 @@
     max-width="1000"
     class="mx-auto ma-7"
   >
+    <h2 class="ma-1"> Quiz Production Certificate </h2>
+
     <v-container class="pa-1">
     <v-row  class="mt-1" dense>
-    
     <v-col cols="10">
     <v-alert
       class="mt-3 ml-2 mr-2"
@@ -20,6 +21,7 @@
       <v-icon left>mdi-checkbox-multiple-blank</v-icon> 
       <b>Main Portal</b>
     </v-btn>
+    
     
     <v-btn class="ma-2" tile  color="success" @click="onClickMenu('/qtse_quiz_list')">
       <v-icon left>mdi-checkbox-multiple-blank</v-icon> 

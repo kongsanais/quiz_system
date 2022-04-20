@@ -15,6 +15,10 @@ import moment from "moment";
 import LazyYoutube from "vue-lazytube";
 Vue.component("LazyYoutube", LazyYoutube);
 Vue.use(LazyYoutube);
+
+
+
+
 new Vue({
   router,
   store,
@@ -24,8 +28,11 @@ new Vue({
 
 
 
+
+
 Vue.use(Vue2Filters);
 Vue.use(require('vue-moment'));
+
 
 
 Vue.filter("formatDate", function(value) {
@@ -34,14 +41,18 @@ Vue.filter("formatDate", function(value) {
   }
 });
 
+
+
 Vue.filter("imageUrl", function(image) {
   return `${imageUrl}/${image}?timestamp=${Date.now()}`;
 });
 
 
+
 Vue.filter("resumeUrl", function(resume) {
   return `${resumeUrl}/${resume}`;
 });
+
 
 
 Vue.filter("quizImgUrl", function(quiz_img) {

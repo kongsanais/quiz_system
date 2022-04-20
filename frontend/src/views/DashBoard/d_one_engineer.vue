@@ -6,7 +6,8 @@
         <v-col class="d-flex" xl="9" lg="8" md="7" sm="12" cols="12">
           <h1 class="ml-6">
             <v-icon large class="mb-2">mdi-file-account-outline</v-icon
-            >Information Profile [ Engineer & Management ]
+            >
+            Partner Profile
           </h1>
         </v-col>
         <v-spacer></v-spacer>
@@ -38,113 +39,36 @@
                   mdi-badge-account-horizontal-outline
                 </v-icon>
                 <h3>Profile</h3>
-
-                <v-dialog v-model="dialog" persistent max-width="600px">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      class="ma-2"
-                      tile
-                      outlined
-                      :color="color_status"
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                     <v-icon left>mdi-pencil</v-icon>
-                      {{ text_status }}
-                    </v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">Update Register Status</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col>
-                            <v-select
-                              :items="['Waitting', 'HR Consider', 'Interview', 'Hiring', 'Fail']"
-                              v-model="applicant.reg_status"
-                              label="Register Status"
-                            >
-                            </v-select>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="dialog = false"
-                        >Close</v-btn
-                      >
-                      <v-btn color="blue darken-1" text @click="go_update_status()"
-                        >Save</v-btn
-                      >
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
               </v-card-title>
 
               <v-card-text class="headline font-weight-bold">
-                <v-text-field
-                  :value="getFullName_eng()"
-                  label="Name ENG"
-                  prepend-icon="mdi-rename-box"
-                  readonly
-                >
-                </v-text-field>
 
-                <v-text-field
-                  :value="getFullName_th()"
-                  label="Name TH"
-                  prepend-icon="mdi-rename-box"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-text-field
-                  :value="getDateFormat(applicant.date_birthday)"
-                  label="Birthday"
-                  prepend-icon="event"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-text-field
-                  :value="getEducation()"
-                  label="Degress / Education"
-                  prepend-icon="mdi-medal"
-                  readonly
-                >
-                </v-text-field>
 
                 <v-text-field
                   :value="getMojorGPA()"
-                  label="Major / GPA"
+                  label="PARTNER"
                   prepend-icon="mdi-card-bulleted-outline"
                   readonly
                 >
                 </v-text-field>
-              </v-card-text>
-            </v-card>
-          </v-col>
 
-          <v-col class="d-flex" xl="3" lg="4" md="12" sm="12" cols="12">
-            <v-card width="100%">
-              <v-card-title>
-                <v-icon large left color="black">
-                  mdi-card-account-phone
-                </v-icon>
-                <h3>Contact</h3>
-              </v-card-title>
 
-              <v-card-text class="headline font-weight-bold">
                 <v-text-field
+                  :value="getFullName_eng()"
+                  label="Name"
+                  prepend-icon="mdi-rename-box"
+                  readonly
+                >
+                </v-text-field>
+
+              <v-text-field
                   v-model="applicant.email"
                   label="Email"
                   prepend-icon="mdi-email-box"
                   readonly
                 >
                 </v-text-field>
+
 
                 <v-text-field
                   v-model="applicant.phone_number"
@@ -154,68 +78,30 @@
                 >
                 </v-text-field>
 
-                <v-text-field
-                  :value="getPhone_Fmaliy()"
-                  label="Phone Family"
-                  prepend-icon="mdi-cellphone"
-                  readonly
-                >
-                </v-text-field>
 
-                <v-textarea
-                  class="mt-2"
-                  v-model="applicant.eng_address"
-                  label="Address / ที่อยู่อาศัย"
-                  readonly
-                  outlined
-                  rows="3"
-                  row-height="25"
-                  shaped
-                ></v-textarea>
+
               </v-card-text>
             </v-card>
-          </v-col>
-
-          <v-col class="d-flex d-xl-none" lg="3" md="12" sm="12" cols="12">
           </v-col>
 
           <v-col class="d-flex" xl="3" lg="4" md="12" sm="12" cols="12">
             <v-card width="100%">
               <v-card-title>
                 <v-icon large left color="black">
-                  mdi-card-account-phone
+                 mdi-file-document-multiple-outline
                 </v-icon>
-                <h3>Resume / CV</h3>
+                <h3>Course</h3>
               </v-card-title>
 
               <v-card-text class="headline font-weight-bold">
-                <v-text-field
+               
+               <v-text-field
                   :value="getLevelandPosition()"
-                  label="Level / Position"
+                  label="Course"
                   prepend-icon="mdi-tablet-dashboard"
                   readonly
                 >
                 </v-text-field>
-
-                <v-text-field
-                  v-model="applicant.job_salary"
-                  label="Salary ( Bath ) "
-                  prepend-icon="mdi-bitcoin"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-btn
-                  color="primary"
-                  class="ma-2 white--text"
-                  :href="getProfileResume()"
-                  target="_blank"
-                  download
-                >
-                  Resume
-                  <v-icon right dark>mdi-file-document</v-icon>
-                </v-btn>
-                 
 
                 <div  class="mt-5"  style="color: #212121;"> 
                 <v-icon large left color="black">
@@ -231,9 +117,14 @@
                 </ul>
                 </div>
 
+
               </v-card-text>
             </v-card>
           </v-col>
+
+          <v-col class="d-flex d-xl-none" lg="3" md="12" sm="12" cols="12">
+          </v-col>
+
         </v-row>
       </v-card-title>
     </v-card>
@@ -320,7 +211,7 @@ export default {
       return phone_fmaliy;
     },
     getLevelandPosition() {
-      let level_position = this.applicant.job_level + " : " + this.applicant.job_position.dep_name;
+      let level_position = this.applicant.job_position.dep_name;
       return level_position;
     },
     getEducation() {
@@ -328,7 +219,7 @@ export default {
       return education;
     },
     getMojorGPA() {
-      let education = this.applicant.majoy_education + " / GPA : " + this.applicant.gpa;
+      let education = this.applicant.majoy_education;
         return education;
     },
     async go_update_status() {

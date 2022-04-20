@@ -1,11 +1,21 @@
 <template>
 <v-container>
-  <v-card
-    class="pa-12"
-    color="#5C6BC0"
-    flat
-  >
+
+  <v-card flat>
     <v-row>
+
+    <v-col cols="12">
+      
+     <v-alert
+      color="primary"
+      dark
+      icon="mdi-camera-timer"
+      border="left"
+      prominent
+    >
+     <b> HR System </b>
+    </v-alert>
+    </v-col>
 
    <!-- Recruit online  -->
     <v-col   xs="12"  sm="12"  	md="12"  lg="2">
@@ -22,9 +32,9 @@
           rounded
         >
           <v-list-item
-            disabled 
             v-for="item in recruit_item"
             :key="item.title"
+            :to="item.link"
             link
           >
             <v-list-item-icon>
@@ -40,7 +50,7 @@
     </v-card>
     </v-col>
 
-    <!-- Tse quiz  -->
+    <!-- TSE  quiz  -->
     <v-col  xs="12"  sm="12"  	md="12"  lg="2" >
      <v-card
       elevation="12"
@@ -97,7 +107,7 @@
             link
           >
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon>{{ item.icon}}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -129,12 +139,13 @@
     data () {
       return {
         recruit_item: [
-          { title: 'Dash Board', icon: 'mdi-view-dashboard' },
+          { title: 'Home', icon : 'mdi-home' , link : '/recruit/home'},
+          { title: 'Dash Board', icon: 'mdi-view-dashboard'},
           { title: 'Register', icon: 'mdi-forum'},
           { title: 'User List', icon: 'mdi-format-line-weight' },
           { title: 'About', icon: 'mdi-information-outline' },
         ],
-        tse_quiz_item:[
+        tse_quiz_item: [
           { title: 'Dash Board', icon: 'mdi-view-dashboard'},
           { title: 'Quiz Management',icon: 'mdi-account-child-circle',link :'qtse_admin_home'},
           { title: 'Quiz Result' , icon : 'mdi-shield-check-outline'}
@@ -143,7 +154,6 @@
           {title : 'Dash Board', icon: 'mdi-view-dashboard' },
           {title : 'Course Management', icon:'mdi-movie-edit-outline',link:'pnc_admin_home'}
         ]
-
 
       }
     },

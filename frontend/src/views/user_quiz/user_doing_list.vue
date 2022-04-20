@@ -8,7 +8,10 @@
         </v-alert> 
         <!-- {{item_quiz}}
        {{length_quiz}} -->
-      <v-data-iterator
+
+
+
+    <v-data-iterator
       v-if="length_quiz != 0"
       :items="items"
       :items-per-page.sync="itemsPerPage"
@@ -44,6 +47,15 @@
 
               <v-list dense>
 
+                 <v-list-item>
+                            <LazyYoutube
+                              ref="youtubeLazyVideo"
+                              :src="item.quiz_vdo_url"
+                              aspect-ratio="16:9"
+                              thumbnail-quality="standard"
+                            />
+                 </v-list-item>
+
                 <v-list-item>
                   <v-list-item-content>Quiz Type :</v-list-item-content>
                   <v-list-item-content class="align-end">{{ item.quiz_type }}</v-list-item-content>
@@ -72,6 +84,9 @@
         </v-row>
       </template>   
     </v-data-iterator>
+
+
+
     </v-container>
 
   </v-card>

@@ -13,7 +13,7 @@ import main_manu from  "@/views/menu/v_home.vue"
 import main_admin_login from  "@/views/menu/v_login_admin.vue"
 
 // dash 
-import  d_engineer from "@/views/DashBoard/d_engineer.vue"
+import d_engineer from "@/views/DashBoard/d_engineer.vue"
 import d_one_engineer from "@/views/DashBoard/d_one_engineer.vue"
 
 //qtse
@@ -34,17 +34,30 @@ import pnc_quiz_edit  from "@/views/partner_collab/admin/v_quiz_edit.vue"
 
 // profile 
 import qtse_profile  from "@/views/user_profile/v_qtse_profile.vue"
-
-
-
 import user_doing_list from "@/views/user_quiz/user_doing_list.vue"
 import user_start_quiz from "@/views/user_quiz/user_start_quiz.vue" 
 import quiz_ans_history  from "@/views/user_quiz/quiz_ans_history.vue"
 
 
+////recuiter  
+import recu_home  from "@/views/Home_page/recruit.vue"
+import recruiit_register  from "@/views/user_register/v_Register_Eng.vue"
+
+
 
 Vue.use(VueRouter);
 const routes = [
+  // online test // 
+  {
+    path : '/recruit/register',
+    name : 'recruiit_register',
+    component :  recruiit_register ,
+  },
+  {
+    path : '/recruit/home',
+    name : 'recruiit_home',
+    component :  recu_home ,
+  },
   {
     path : "/quiz_ans_history/:quiz_id/:user_id",
     name : "quiz_ans_history",

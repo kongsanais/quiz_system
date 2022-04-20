@@ -5,10 +5,10 @@ export const UPLOAD_PHOTO_FAIL_MESSAGE = "An error has occurred. The photo was u
 export const NOT_CONNECT_NETWORK = "NOT_CONNECT_NETWORK";
 
 
-export const apiUrl = "http://localhost:3000";
-export const imageUrl = "http://localhost:3000/images";
-export const resumeUrl = "http://localhost:3000/resume";
-export const quizImgUrl = "http://localhost:3000/quiz";
+export const apiUrl = "http://107.101.4.146:3000";
+export const imageUrl = "http://107.101.4.146:3000/images";
+export const resumeUrl = "http://107.101.4.146:3000/resume";
+export const quizImgUrl = "http://107.101.4.146:3000/quiz";
 
 
 export const department = {

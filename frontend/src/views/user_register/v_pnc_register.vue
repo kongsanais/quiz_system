@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-xs>
+  <v-container>
     <v-form @submit.prevent="submit" ref="form" v-model="valid" lazy-validation>
       <v-card>
         <v-toolbar flat color="primary" dark>
@@ -11,7 +11,7 @@
            </b>
               </v-col>
               <v-col>
-                          <v-btn class="ma-2" tile  color="success"  @click="$router.go(-1)" small>
+           <v-btn class="ma-2" tile  color="success"  @click="$router.go(-1)" small>
             <v-icon left>mdi-keyboard-return</v-icon> 
             <b>Back</b>
           </v-btn>
@@ -23,6 +23,7 @@
         </v-toolbar>
 
         <v-tabs v-model="tab" vertical>
+          
           <v-tab
             class="mr-2 d-none d-sm-flex disabledTab"
             v-for="tab in tabs"
@@ -35,7 +36,7 @@
           </v-tab>
 
           <v-tab-item value="tab-1" >
-                                  <input
+                              <input
                               type="file"
                               style="display: none"
                               ref="inputUpload_img"
@@ -182,42 +183,62 @@
                     <!-- {{applicant.job_position}} -->
                      </v-col>
 
-                     <v-col class="d-flex" xl="4" lg="4" md="4" sm="12" cols="12" >
-                                <v-card
-                                  class="mx-auto"
-                                  max-width="400"
-                                  tile
-                                >
-                                <!-- {{data_content}} -->
-                                 
+
+
+                     <v-col  xl="10" lg="4" md="4" sm="12" cols="12" >
+                                    <v-card>
                                    <v-simple-table dense>
                                     <template v-slot:default>
                                       <thead>
                                         <tr>
-                                          <th class="text-left">
-                                            Name
+                                          
+                                          <th class="text-center">
+                                            No.
                                           </th>
-                                          <th class="text-left">
-                                            Calories
+                                          
+                                          <th class="text-center">
+                                            VDO 
                                           </th>
+                                          
+                                           <th class="text-center">
+                                            Content Name
+                                           </th>
+                                          
                                         </tr>
                                       </thead>
                                       <tbody>
                                         <tr
-                                          v-for="(item,index) in data_content"
+                                          v-for="(item,index) in data_content[0].dep_quiz"
                                           :key="item.name"
                                         >
-                                          <td>{{ item.dep_quiz[index].quiz_name}}</td>
+                                          <td  class="text-center">
+                                            {{index +1}}
+                                          </td>
+                                          <td class="text-center">
+                                                <LazyYoutube
+                                                  ref="youtubeLazyVideo"
+                                                  :src="item.quiz_vdo_url"
+                                                  aspect-ratio="16:9"
+                                                  thumbnail-quality="standard"
+                                                />
+                                                
+                                          </td>
+
+                                          <td class="text-center">
+                                            {{ item.quiz_name}}
+                                          </td>
+                                          
                                         </tr>
                                       </tbody>
                                     </template>
-                                  </v-simple-table>
-
-
-                                </v-card>
+                                   </v-simple-table>
+                                     </v-card>       
                      </v-col>
 
-                      
+
+
+
+                  
                     </v-row>
                 
                   </v-col>
@@ -235,8 +256,6 @@
               </v-card-text>
             </v-card>
           </v-tab-item>
-
-
         </v-tabs>
       </v-card>
     </v-form>
@@ -347,7 +366,7 @@ export default {
     valid: true,
     checkpassword: "",
     date_menu: false, //for date
-    imageURL: "http://107.101.4.146:8081/img/2182242.8862f790.png",
+    imageURL: "http://localhost:3000/images/622183bf8e56ad5b8c428878.png?timestamp=1646364408456",
     CountryList: ["Thailand"],
     message_filename_pic: "Upload Picture",
     message_filename_resume: " Upload Resume / CV",
@@ -380,7 +399,9 @@ export default {
       sub_text: "",
       router: "",
     },
-    data_content :[]
+    data_content :[
+      {},{},{},{},{},{},{}
+    ]
   }),
   async mounted(){
     var depart_list =  await api.getOnlydepart();
@@ -502,7 +523,8 @@ export default {
           this.dialog_messenger.text  ="Register Complete" ;
           this.dialog_messenger.sub_text = "";
           this.dialog_messenger.status = true;
-          this.dialog_messenger.router = "/login";
+          this.dialog_messenger.router = "/d_engineer";
+          router.push('/d_engineer')
         } else {
           this.dialog_messenger.text = "Please Check Your E-mail is Used";
           this.dialog_messenger.sub_text = "";
@@ -518,7 +540,6 @@ export default {
     },
     async get_content(){
       var id = this.applicant.job_position;
-      alert(id)
       var data = await api.getDoingquizID({id:id});
       this.data_content = data.Dep_list
     }

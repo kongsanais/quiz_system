@@ -4,11 +4,17 @@
     max-width="1000"
     class="mx-auto ma-7"
   >
+
+     <h2 class="ma-1"> Partner Collab </h2>
+
     <v-container class="pa-1">
     <v-row  class="mt-1" dense>
     
 
     <v-col cols="12" xl="10" sm="6" md="9">
+      
+        
+      
     <v-alert
       class="mt-3 ml-2 mr-2"
       border="left"
@@ -109,6 +115,7 @@
           </v-card>
         </v-col>
 
+        <!---
         <v-col cols="12">
           <v-card
             color="#0D47A1"
@@ -133,6 +140,7 @@
           </div>
           </v-card>
         </v-col>
+        -->
         
       </v-row>
     </v-container>

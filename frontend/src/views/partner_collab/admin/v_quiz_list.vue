@@ -2,6 +2,8 @@
  <v-container>
    <v-card>
 
+     <h2 class="ma-1">Partner Collab</h2>
+
     <v-container class="pa-1">
       <v-row class="mt-1" dense>
 
@@ -214,6 +216,11 @@
 import api from "@/services/api";
 export default {
   async mounted() {
+    
+        if(!api.isLoggedInAdmin()){
+      this.$router.push("/main_admin_login"); 
+    }
+
      this.dialog_load.status = true
      var data = await api.getAllQuizlist();
 
@@ -283,7 +290,7 @@ export default {
         this.item_quiz = data;
 
         
-        //location.reload();
+        location.reload();
       }
       
     }///remove quiz

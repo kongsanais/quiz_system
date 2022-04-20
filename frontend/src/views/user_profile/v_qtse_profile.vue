@@ -53,48 +53,9 @@
 
 
               <v-card-text class="headline font-weight-bold">
-                <v-text-field
-                  :value="getFullName_eng()"
-                  label="Name ENG"
-                  prepend-icon="mdi-rename-box"
-                  readonly
-                >
-                </v-text-field>
+               
 
 
-                <v-text-field
-                  :value="getFullName_th()"
-                  label="Name TH"
-                  prepend-icon="mdi-rename-box"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-text-field
-                  :value="getDateFormat(applicant.date_birthday)"
-                  label="Birthday"
-                  prepend-icon="event"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-text-field
-                  :value="getEducation()"
-                  label="Degress / Education"
-                  prepend-icon="mdi-medal"
-                  readonly
-                >
-                </v-text-field>
-
-                
-                <v-text-field
-                  :value="getMojorGPA()"
-                  label="Major / GPA"
-                  prepend-icon="mdi-card-bulleted-outline"
-                  readonly
-                >
-
-                </v-text-field>
 
               </v-card-text>
             </v-card>
@@ -109,43 +70,7 @@
                 <h3>Contact</h3>
               </v-card-title>
 
-              <v-card-text class="headline font-weight-bold">
-                <v-text-field
-                  v-model="applicant.email"
-                  label="Email"
-                  prepend-icon="mdi-email-box"
-                  readonly
-                >
-                </v-text-field>
 
-                <v-text-field
-                  v-model="applicant.phone_number"
-                  label="Phone"
-                  prepend-icon="mdi-rename-box"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-text-field
-                  :value="getPhone_Fmaliy()"
-                  label="Phone Family"
-                  prepend-icon="mdi-cellphone"
-                  readonly
-                >
-                </v-text-field>
-                
-                <v-textarea
-                  class="mt-2"
-                  v-model="applicant.eng_address"
-                  label="Address / ที่อยู่อาศัย"
-                  readonly
-                  outlined
-                  rows="3"
-                  row-height="25"
-                  shaped
-                ></v-textarea>
-
-              </v-card-text>
             </v-card>
           </v-col>
 
@@ -153,46 +78,7 @@
                
           </v-col>
 
-          <v-col class="d-flex" xl="3" lg="4" md="12" sm="12" cols="12">
-            <v-card width="100%">
-              <v-card-title>
-                <v-icon large left color="black">
-                  mdi-card-account-phone
-                </v-icon>
-                <h3>Resume / CV</h3>
-              </v-card-title>
 
-              <v-card-text class="headline font-weight-bold">
-                <v-text-field
-                  :value="getLevelandPosition()"
-                  label="Level / Position"
-                  prepend-icon="mdi-tablet-dashboard"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-text-field
-                  v-model="applicant.job_salary"
-                  label="Salary ( Bath ) "
-                  prepend-icon="mdi-bitcoin"
-                  readonly
-                >
-                </v-text-field>
-
-                <v-btn
-                  color="primary"
-                  class="ma-2 white--text"
-                  :href="getProfileResume()"
-                  target="_blank"
-                  download
-                >
-                  Resume
-                  <v-icon right dark>mdi-file-document</v-icon>
-                </v-btn>
-
-              </v-card-text>
-            </v-card>
-          </v-col>
         </v-row>
       </v-card-title>
 
